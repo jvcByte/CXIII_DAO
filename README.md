@@ -1,66 +1,56 @@
-## Foundry
+# Cohort XIII DAO
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A simple DAO for managing proposals and voting.
 
-Foundry consists of:
+## What's Inside
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- Create funding proposals
+- Vote on proposals (FOR/AGAINST)
+- 6-hour voting period
+- Only members can vote
+- Uses C13 token
 
-## Documentation
+## Quick Start
 
-https://book.getfoundry.sh/
+1. Install Foundry:
+   ```bash
+   curl -L https://foundry.paradigm.xyz | bash
+   ```
 
-## Usage
+2. Clone and install:
+   ```bash
+   git clone https://github.com/jvcByte/Cohort_CXIII_DAO_Foundry.git
+   cd Cohort_CXIII_DAO_Foundry
+   forge install
+   ```
 
-### Build
+3. Run tests:
+   ```bash
+   forge test
+   ```
 
-```shell
-$ forge build
+## How It Works
+
+1. Admin adds members
+2. Members create proposals
+3. Members vote on proposals
+4. After 6 hours, anyone can execute successful proposals
+
+## Contracts
+
+- `Cohort_CXIII_DAO`: Main contract with voting logic
+- `DaoToken`: C13 ERC20 token
+
+## Commands
+
+```bash
+# Run all tests
+forge test
+
+# Deploy to testnet
+forge script script/DAO.s.sol --rpc-url $RPC_URL --broadcast
 ```
 
-### Test
+## License
 
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+MIT
