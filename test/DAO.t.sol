@@ -4,17 +4,20 @@ pragma solidity ^0.8.13;
 import {Test, console} from "forge-std/Test.sol";
 import {Cohort_CXIII_DAO} from "../src/Dao.sol";
 import {DaoToken} from "../src/$DAO.sol";
+import {ProposalState} from "../src/Dao.sol";
 
 contract Cohort_CXIII_DAO_Tests is Test {
     Cohort_CXIII_DAO public dao;
     DaoToken public daoToken;
     address public admin;
     address public testAdmin = address(0x123);
-    address public user1 = address(0x1111111111111111111111111111111111111111);
-    address public user2 = address(0x2222222222222222222222222222222222222222);
-    address public user3 = address(0x3333333333333333333333333333333333333333);
-    address public user4 = address(0x4444444444444444444444444444444444444444);
-    address public user5 = address(0x5555555555555555555555555555555555555555);
+    address public member1 = address(0x1111111111111111111111111111111111111111);
+    address public member2 = address(0x2222222222222222222222222222222222222222);
+    address public member3 = address(0x3333333333333333333333333333333333333333);
+    address public member4 = address(0x4444444444444444444444444444444444444444);
+    address public member5 = address(0x5555555555555555555555555555555555555555);
+
+    address public nonMember = address(0x6666666666666666666666666666666666666666);
 
     function setUp() public {
         vm.prank(testAdmin);
@@ -41,8 +44,8 @@ contract Cohort_CXIII_DAO_Tests is Test {
 
     function test_AddMember() public {
         vm.prank(admin);
-        dao.addMember(user1);
-        assertEq(dao.isMember(user1), true);
+        dao.addMember(member1);
+        assertEq(dao.isMember(member1), true);
     }
 
     function testFuzz_AddMember(address member) public {
@@ -52,15 +55,15 @@ contract Cohort_CXIII_DAO_Tests is Test {
 
     function test_CreateProposal() public {
         vm.prank(admin);
-        dao.addMember(user1);
+        dao.addMember(member1);
 
-        vm.prank(user1);
-        dao.createProposal(user2, 1 ether, "Test proposal");
+        vm.prank(member1);
+        dao.createProposal(member2, 1 ether, "Test proposal");
 
         (address recipient, uint amount, string memory description, uint deadline, bool executed, address[] memory voters) = dao.getProposal(1);
         assertEq(description, "Test proposal");
         assertEq(amount, 1 ether);
-        assertEq(recipient, user2);
+        assertEq(recipient, member2);
         assertEq(deadline, block.timestamp + 21600);
         assertEq(executed, false);
         assertEq(voters.length, 0);
@@ -76,10 +79,40 @@ contract Cohort_CXIII_DAO_Tests is Test {
         assertEq(dao.proposalCount(), 0);
 
         vm.prank(admin);
-        dao.addMember(user1);
-        
-        vm.prank(user1);
-        dao.createProposal(user2, 1 ether, "Test proposal");
+        dao.addMember(member1);
+
+        vm.prank(member1);
+        dao.createProposal(member2, 1 ether, "Test proposal");
         assertGt(dao.proposalCount(), 0, "Proposal count should be 1");
     }
+
+    function test_Vote() public {
+        vm.startPrank(admin);
+        dao.addMember(member1);
+        dao.addMember(member2);
+        dao.addMember(member3);
+        dao.addMember(member4);
+        dao.addMember(member5);
+        vm.stopPrank();
+
+        vm.prank(member1);
+        dao.createProposal(nonMember, 1 ether, "Host hackathon");
+
+        vm.prank(member2);
+        dao.vote(1, ProposalState.VOTE_FOR, "Good idea");
+
+        vm.prank(member3);
+        dao.vote(1, ProposalState.VOTE_AGAINST, "I won't benefit from this");
+
+        vm.prank(member4);
+        dao.vote(1, ProposalState.VOTE_FOR, "I want to test my skills");
+
+        vm.prank(member5);
+        dao.vote(1, ProposalState.VOTE_AGAINST, "Just a means to test your product and pay peanut");
+
+        vm.prank(nonMember);
+        vm.expectRevert();
+        dao.vote(1, ProposalState.VOTE_FOR, "Want to be part of a team");
+    }
+
 }
