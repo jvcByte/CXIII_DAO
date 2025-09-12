@@ -23,18 +23,18 @@ contract Cohort_CXIII_DAO_Tests is Test {
         admin = dao.admin();
     }
 
-    function test_Constructor_SetsAdminToDeployer() public {
+    function test_Constructor_SetsAdminToDeployer() public view {
         assertEq(admin, testAdmin, "Deployer is not admin");
     }
 
-    function test_Constructor_DeploysNewToken() public {
+    function test_Constructor_DeploysNewToken() public view {
         assertTrue(address(daoToken) != address(0), "$DAO Token is zero address");
         assertEq(daoToken.name(), "Cohort 13 Dao Token", "Token name should be set");
         assertEq(daoToken.symbol(), "C13", "Token symbol should be set");
         assertEq(daoToken.totalSupply(), 100_000_000_000 ether, "Initial supply should be 100M");
     }
 
-    function test_Constructor_MintsInitialSupplyToDAO() public {
+    function test_Constructor_MintsInitialSupplyToDAO() public view {
         uint256 balance = daoToken.balanceOf(address(dao));
         assertGt(balance, 0, "DAO should have initial token balance");
     }
@@ -48,5 +48,26 @@ contract Cohort_CXIII_DAO_Tests is Test {
     function testFuzz_AddMember(address member) public {
         vm.expectRevert();
         dao.addMember(member);
+    }
+
+    function test_CreateProposal() public {
+        vm.prank(admin);
+        dao.addMember(user1);
+
+        vm.prank(user1);
+        dao.createProposal(user2, 1 ether, "Test proposal");
+
+        (address recipient, uint amount, string memory description, uint deadline, bool executed, address[] memory voters) = dao.getProposal(1);
+        assertEq(description, "Test proposal");
+        assertEq(amount, 1 ether);
+        assertEq(recipient, user2);
+        assertEq(deadline, block.timestamp + 21600);
+        assertEq(executed, false);
+        assertEq(voters.length, 0);
+    }
+
+    function testFuzz_CreateProposal(address recipient, uint amount, string memory description) public {
+        vm.expectRevert();
+        dao.createProposal(recipient, amount, description);
     }
 }
