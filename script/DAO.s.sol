@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {Counter} from "../src/Counter.sol";
+import {Cohort_CXIII_DAO} from "../src/Dao.sol";
 
-contract CounterScript is Script {
-    Counter public counter;
+contract Cohort_CXIII_DAOScript is Script {
+    Cohort_CXIII_DAO public dao;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        counter = new Counter();
+        dao = new Cohort_CXIII_DAO();
 
         vm.stopBroadcast();
     }
