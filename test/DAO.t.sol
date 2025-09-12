@@ -70,4 +70,16 @@ contract Cohort_CXIII_DAO_Tests is Test {
         vm.expectRevert();
         dao.createProposal(recipient, amount, description);
     }
+
+    function test_getProposal() public {
+        dao.getProposal(0);
+        assertEq(dao.proposalCount(), 0);
+
+        vm.prank(admin);
+        dao.addMember(user1);
+        
+        vm.prank(user1);
+        dao.createProposal(user2, 1 ether, "Test proposal");
+        assertGt(dao.proposalCount(), 0, "Proposal count should be 1");
+    }
 }
