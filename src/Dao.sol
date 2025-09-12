@@ -79,6 +79,7 @@ contract Cohort_CXIII_DAO {
 
     function vote(uint id, ProposalState state, string memory comment) public {
         require(isMember[msg.sender], "Non-members are not allowed to vote");
+        require(proposals[id].id != 0, "Proposal does not exist"); // jvcByte added this line
         require(block.timestamp < proposals[id].deadline, "Proposal deadline has passed");
         require(proposals[id].votes[msg.sender] == ProposalState.NONE, "You have already voted on this proposal");
         require(

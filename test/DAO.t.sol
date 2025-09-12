@@ -115,4 +115,23 @@ contract Cohort_CXIII_DAO_Tests is Test {
         dao.vote(1, ProposalState.VOTE_FOR, "Want to be part of a team");
     }
 
+    function testFuzz_Vote(uint id, uint8 state, string memory comment) public {
+        vm.assume(state == 1 || state == 2);
+        id = 1;
+    
+        vm.startPrank(admin);
+        dao.addMember(member1);
+        dao.addMember(member2);
+        vm.stopPrank();
+    
+        vm.prank(member1);
+        dao.createProposal(member2, 1 ether, "Test proposal");
+    
+        vm.prank(member2);
+        dao.vote(id, ProposalState(state), comment);
+    
+        (ProposalState voteState, ) = dao.getUserVoteInProposal(id, member2);
+        assertEq(uint256(voteState), state, "Vote state should match");
+    }
+
 }
