@@ -19,8 +19,10 @@ Test Case: testFuzz_Vote(223830298867389177874791110299591, 2, "១t÷Ѩ.🪆")
 - **Issue**: The test failed with a "Proposal deadline has passed" error when using a large proposal ID.
 - **Root Cause**: The test uses fuzzed proposal IDs, and when an ID doesn't exist in the `proposals` mapping, it returns a default `Proposal` with `deadline = 0`. Since `block.timestamp` is always > 0, the check `block.timestamp < 0` fails.
 - **Expected Behavior**: The test should verify the proposal exists before attempting to vote, or only test with valid proposal IDs.
-- **Solution**: 
-  1. Add a check for proposal existence before voting.
+- **Solution**: Add a check for proposal existence before voting.
+  1. Added a new mapping `proposalExists` to track valid proposal IDs
+  2. Updated `createProposal` to set `proposalExists[proposalCount] = true`
+  3. Modified `vote` and `fulfillProposal` to check `proposalExists[id]` before proceeding
   
 ### Test Coverage
 

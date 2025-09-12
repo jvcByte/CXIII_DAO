@@ -134,4 +134,35 @@ contract Cohort_CXIII_DAO_Tests is Test {
         assertEq(uint256(voteState), state, "Vote state should match");
     }
 
+    function test_FulfillProposal() public {
+        vm.startPrank(admin);
+        dao.addMember(member1);
+        dao.addMember(member2);
+        vm.stopPrank();
+
+        vm.prank(member1);
+        dao.createProposal(member2, 1 ether, "Host hackathon");
+
+        vm.prank(member2);
+        dao.vote(1, ProposalState.VOTE_FOR, "Good idea");
+
+        vm.warp(block.timestamp + 21600 + 1);
+
+        vm.prank(nonMember);
+        dao.fulfillProposal(1);
+
+        (address recipient, uint amount, string memory description, uint deadline, bool executed, address[] memory voters) = dao.getProposal(1);
+        assertEq(recipient, member2);
+        assertEq(amount, 1 ether);
+        assertEq(description, "Host hackathon");
+        assertTrue(block.timestamp > deadline);
+        assertEq(executed, true);
+        assertEq(daoToken.balanceOf(address(dao)), 100_000_000_000 ether - 1 ether);
+        assertEq(daoToken.balanceOf(member2), 1 ether);
+        assertEq(voters.length, 1);
+        assertEq(voters[0], member2);
+        assertEq(dao.proposalCount(), 1);
+
+    }
+
 }

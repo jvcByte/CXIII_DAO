@@ -26,6 +26,8 @@ contract Cohort_CXIII_DAO {
 
     mapping(uint => Proposal) public proposals;
     mapping(address => bool) public isMember;
+
+    mapping(uint => bool) public proposalExists; // jvcByte added this line
     uint public proposalCount;
 
     DaoToken public daoToken;
@@ -56,6 +58,7 @@ contract Cohort_CXIII_DAO {
         _newProposal.amount = amount;
         _newProposal.recipient = _recipient;
         _newProposal.deadline = block.timestamp + PROPOSAL_DURATION;
+        proposalExists[proposalCount] = true; // jvcByte added this line
 
         emit ProposalCreated(proposalCount, _description, _newProposal.deadline);
     }
@@ -79,7 +82,7 @@ contract Cohort_CXIII_DAO {
 
     function vote(uint id, ProposalState state, string memory comment) public {
         require(isMember[msg.sender], "Non-members are not allowed to vote");
-        require(proposals[id].id != 0, "Proposal does not exist"); // jvcByte added this line
+        require(proposalExists[id], "Proposal does not exist"); // jvcByte added this line
         require(block.timestamp < proposals[id].deadline, "Proposal deadline has passed");
         require(proposals[id].votes[msg.sender] == ProposalState.NONE, "You have already voted on this proposal");
         require(
@@ -95,6 +98,7 @@ contract Cohort_CXIII_DAO {
     }
 
     function fulfillProposal(uint id) public {
+        require(proposalExists[id], "Proposal does not exist"); // jvcByte added this line 
         Proposal storage pr = proposals[id];
         require(block.timestamp > pr.deadline, "Proposal deadline has not passed yet");
         require(!pr.executed, "Proposal has already been executed");
