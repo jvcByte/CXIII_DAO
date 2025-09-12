@@ -32,18 +32,8 @@ contract Cohort_CXIII_DAO {
     address public admin;
 
     event ProposalCreated(uint id, string description, uint deadline);
-    event Voted(
-        uint id,
-        address indexed voter,
-        ProposalState state,
-        string comment
-    );
-    event ProposalFulfilled(
-        uint id,
-        string description,
-        address recipient,
-        uint amount
-    );
+    event Voted(uint id, address indexed voter, ProposalState state, string comment);
+    event ProposalFulfilled(uint id, string description, address recipient, uint amount);
 
     constructor() {
         daoToken = new DaoToken();
@@ -55,11 +45,7 @@ contract Cohort_CXIII_DAO {
         isMember[_member] = true;
     }
 
-    function createProposal(
-        address _recipient,
-        uint amount,
-        string memory _description
-    ) public {
+    function createProposal(address _recipient, uint amount, string memory _description) public {
         require(isMember[msg.sender], "Only members can create proposals");
 
         proposalCount++;
@@ -71,20 +57,10 @@ contract Cohort_CXIII_DAO {
         _newProposal.recipient = _recipient;
         _newProposal.deadline = block.timestamp + PROPOSAL_DURATION;
 
-        emit ProposalCreated(
-            proposalCount,
-            _description,
-            _newProposal.deadline
-        );
+        emit ProposalCreated(proposalCount, _description, _newProposal.deadline);
     }
 
-    function getProposal(
-        uint id
-    )
-        public
-        view
-        returns (address, uint, string memory, uint, bool, address[] memory)
-    {
+    function getProposal(uint id) public view returns (address, uint, string memory, uint, bool, address[] memory) {
         Proposal storage _proposal = proposals[id];
         return (
             _proposal.recipient,
@@ -96,27 +72,17 @@ contract Cohort_CXIII_DAO {
         );
     }
 
-    function getUserVoteInProposal(
-        uint id,
-        address voter
-    ) public view returns (ProposalState state, string memory comment) {
+    function getUserVoteInProposal(uint id, address voter) public view returns (ProposalState state, string memory comment) {
         Proposal storage _proposal = proposals[id];
         return (_proposal.votes[voter], _proposal.comments[voter]);
     }
 
     function vote(uint id, ProposalState state, string memory comment) public {
         require(isMember[msg.sender], "Non-members are not allowed to vote");
+        require(block.timestamp < proposals[id].deadline, "Proposal deadline has passed");
+        require(proposals[id].votes[msg.sender] == ProposalState.NONE, "You have already voted on this proposal");
         require(
-            block.timestamp < proposals[id].deadline,
-            "Proposal deadline has passed"
-        );
-        require(
-            proposals[id].votes[msg.sender] == ProposalState.NONE,
-            "You have already voted on this proposal"
-        );
-        require(
-            state == ProposalState.VOTE_FOR ||
-                state == ProposalState.VOTE_AGAINST,
+            state == ProposalState.VOTE_FOR || state == ProposalState.VOTE_AGAINST,
             "Invalid proposal state"
         );
 
@@ -129,19 +95,18 @@ contract Cohort_CXIII_DAO {
 
     function fulfillProposal(uint id) public {
         Proposal storage pr = proposals[id];
-        require(
-            block.timestamp > pr.deadline,
-            "Proposal deadline has not passed yet"
-        );
+        require(block.timestamp > pr.deadline, "Proposal deadline has not passed yet");
         require(!pr.executed, "Proposal has already been executed");
         require(daoToken.balanceOf(address(this)) >= pr.amount, "Insufficient DAO funds");
 
         uint forVotes;
         uint againstVotes;
         for (uint i = 0; i < pr.voters.length; i++) {
-            if (pr.votes[pr.voters[i]] == ProposalState.VOTE_FOR) forVotes++;
-            else if (pr.votes[pr.voters[i]] == ProposalState.VOTE_AGAINST)
+            if (pr.votes[pr.voters[i]] == ProposalState.VOTE_FOR) {
+                forVotes++;
+            } else if (pr.votes[pr.voters[i]] == ProposalState.VOTE_AGAINST) {
                 againstVotes++;
+            }
         }
         require(forVotes > againstVotes, "Proposal rejected");
 
