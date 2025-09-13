@@ -1,22 +1,17 @@
-import { ThemeSwitcher } from '@/components/theme-switcher'
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-const RootLayout = () => (
-    <>                                      
-        <div className="p-2 flex gap-2">
-            <Link to="/" className="[&.active]:font-bold">
-                Home
-            </Link>{' '}
-            <Link to="/about" className="[&.active]:font-bold">
-                About
-            </Link>
-            <ThemeSwitcher />
-        </div>
-        <hr />
-        <Outlet />
-        <TanStackRouterDevtools />
-    </>
-)
+import { QueryClient } from '@tanstack/react-query'
 
-export const Route = createRootRoute({ component: RootLayout })
+interface MyRouterContext {
+    queryClient: QueryClient
+} 
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
+    component: () => (
+        <>
+            <Outlet />
+            <TanStackRouterDevtools position="bottom-right" initialIsOpen={false} />
+        </>
+    ),
+})
