@@ -37,4 +37,4 @@ constructor(address _admin, address _token) {
 ### Deployment
 - Contract: `0xD3d8eC48Ba24FaDeab6a15A216fc8154BDe2F177` (Sepolia)
 - Token: `0x8035e0479e339a31E3B248E43ECfbd427E823F56` (Sepolia)
-- Block: 9191393
+- Block: 9191909
