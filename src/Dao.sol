@@ -37,9 +37,9 @@ contract Cohort_CXIII_DAO {
     event Voted(uint id, address indexed voter, ProposalState state, string comment);
     event ProposalFulfilled(uint id, string description, address recipient, uint amount);
 
-    constructor() {
-        daoToken = new DaoToken();
-        admin = msg.sender;
+    constructor(address _admin, address _token) {
+        daoToken = DaoToken(_token);
+        admin = _admin;
     }
 
     function addMember(address _member) public {
