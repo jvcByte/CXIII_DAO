@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { HeroHeader } from "@/components/header"
 import { ChevronRight } from 'lucide-react'
+import { TextLoopBasic } from './layout/tesxt-loop-role'
 
 const heroImage = '/src/assets/mist/tailark.png'
 const navLinks = [
@@ -23,9 +24,11 @@ export default function HeroSection() {
                                     >
                                         Web<span className="text-[#fa0707]">3</span>Bridge CXIII DAO
                                     </h1>
-                                    <p className="text-muted-foreground my-8 max-w-2xl text-balance text-xl">The future of payments for startups</p>
+                                    <p className="text-muted-foreground my-8 max-w-2xl text-balance text-xl">
+                                        <TextLoopBasic />
+                                    </p>
 
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center justify-center gap-3">
                                         <Button
                                             asChild
                                             size="lg"
@@ -49,8 +52,8 @@ export default function HeroSection() {
                                     </div>
                                 </div>
 
-                                <div className="mt-10">
-                                    <p className="text-muted-foreground">Used by teams at :</p>
+                                <div className="mt-20 md:mt-10">
+                                    <p className="text-muted-foreground text-start">Used by teams at :</p>
                                     <div className="flex justify-center items-center mt-6 max-w-sm gap-10">
                                         
                                         <div className="flex">
