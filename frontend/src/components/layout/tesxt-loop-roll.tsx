@@ -35,7 +35,7 @@ export function TextLoopBasic() {
             interval={5}
         >
             <span> <TextRoll>₿ Create funding proposals</TextRoll></span>
-            <span> <TextRoll>± Vote on proposals (FOR/AGAINST)</TextRoll></span>
+            <span> <TextRoll>± Vote on proposals</TextRoll></span>
             <span> <TextRoll>✇ 6-hour voting period</TextRoll></span>
             <span> <TextRoll>⦾ Only members can vote</TextRoll></span>
             <span> <TextRoll>₵ Uses C13 token</TextRoll></span>

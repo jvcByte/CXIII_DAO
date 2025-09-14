@@ -14,21 +14,21 @@ export default function HeroSection() {
     return (
         <>
             <HeroHeader />
-            <main className="text-center md:text-start overflow-hidden">
+            <main className="text-center lg:text-start overflow-hidden">
                 <section className="bg-linear-to-b to-muted from-background">
                     <div className="relative py-36">
                         <div className="relative z-10 mx-auto w-full max-w-5xl px-6">
-                            <div className="md:w-1/2">
-                                <div className='items-center md:items-start'>
-                                    <h1 className="max-w-md text-balance text-5xl font-bold md:text-6xl tracking-widest leading-[1.5]"
+                            <div className="lg:w-1/2">
+                                <div className='items-center lg:items-start'>
+                                    <h1 className=" text-balance text-5xl font-bold md:text-6xl tracking-widest leading-[1.5]"
                                     >
                                         Web<span className="text-[#fa0707]">3</span>Bridge CXIII DAO
                                     </h1>
-                                    <p className="text-muted-foreground my-8 max-w-2xl text-balance text-xl">
+                                    <p className="text-muted-foreground my-8 text-balance text-xl">
                                         <TextLoopBasic />
                                     </p>
 
-                                    <div className="flex items-center justify-center gap-3">
+                                    <div className="flex items-center justify-center lg:justify-start gap-3">
                                         <Button
                                             asChild
                                             size="lg"
@@ -88,7 +88,7 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        <div className="hidden md:block perspective-near mt-24 translate-x-4 md:absolute md:-right-[16] md:bottom-16 md:left-1/2 md:top-70 md:mt-0 md:translate-x-0">
+                        <div className="hidden lg:block perspective-near mt-24 translate-x-4 md:absolute md:-right-[16] md:bottom-16 md:left-1/2 md:top-70 md:mt-0 md:translate-x-0">
                             <div className="before:border-foreground/5 before:bg-foreground/5 relative h-full before:absolute before:-inset-x-4 before:bottom-9 before:top-0 before:skew-x-6 before:rounded-[calc(var(--radius)+0.5rem)] before:border">
                                 <div className="bg-background rounded-[calc(var(--radius)+0.5rem)] shadow-foreground/10 ring-foreground/5 relative h-full -translate-y-29 skew-x-6 overflow-hidden border border-transparent shadow-md ring-1">
                                     <img

@@ -52,7 +52,9 @@ export const HeroHeader = () => {
                                     <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
                                     <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
                                 </button>
-                                <ThemeSwitcher /> 
+                                <div className='lg:hidden'>
+                                    <ThemeSwitcher />
+                                </div> 
                             </div>
 
                             <div className="m-auto hidden size-fit lg:block">
