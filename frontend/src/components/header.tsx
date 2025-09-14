@@ -58,13 +58,13 @@ export const HeroHeader = () => {
                             </div>
 
                             <div className="m-auto hidden size-fit lg:block">
-                                <ul className="flex gap-1">
+                                <ul className="flex">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
                                             <Button
                                                 asChild
                                                 variant="ghost"
-                                                size="sm">
+                                                size="lg">
                                                 <Link
                                                     to={item.to}
                                                     className="text-base">
