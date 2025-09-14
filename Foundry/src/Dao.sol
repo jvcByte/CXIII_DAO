@@ -98,7 +98,7 @@ contract Cohort_CXIII_DAO {
     }
 
     function fulfillProposal(uint id) public {
-        require(proposalExists[id], "Proposal does not exist"); // jvcByte added this line 
+        require(proposalExists[id], "Proposal does not exist"); // jvcByte added this line
         Proposal storage pr = proposals[id];
         require(block.timestamp > pr.deadline, "Proposal deadline has not passed yet");
         require(!pr.executed, "Proposal has already been executed");

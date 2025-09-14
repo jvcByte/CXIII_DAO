@@ -1,10 +1,10 @@
-import { HeroHeader } from '@/components/header'
-import { createFileRoute } from '@tanstack/react-router'
-import HeroSection from '@/components/hero-section'
+import { HeroHeader } from "@/components/header";
+import { createFileRoute } from "@tanstack/react-router";
+import HeroSection from "@/components/hero-section";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: Index,
-})
+});
 
 function Index() {
   return (
@@ -12,5 +12,5 @@ function Index() {
       <HeroHeader />
       <HeroSection />
     </div>
-  )
+  );
 }
