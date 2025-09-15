@@ -2,15 +2,11 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { ThemeProvider } from "./context/theme-provider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/config";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
-import type { config as configType } from "./lib/config";
-import { config } from "./lib/config";
-import { WagmiProvider } from "wagmi";
-
-const queryClient = new QueryClient({});
+import { Web3Provider } from "@/lib/web3Config";
 
 // Create a new router instance
 const router = createRouter({
@@ -21,13 +17,6 @@ const router = createRouter({
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
 });
-
-// Register wagmi instance for type safety
-declare module "wagmi" {
-  interface Register {
-    wagmi: typeof configType;
-  }
-}
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -42,13 +31,11 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-            <RouterProvider router={router} />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </WagmiProvider>
+      <Web3Provider>
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </Web3Provider>
     </StrictMode>,
   );
 }

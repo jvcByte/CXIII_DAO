@@ -5,17 +5,12 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { ThemeSwitcher } from "./theme-switcher";
+import { ConnectKitButton } from "connectkit";
 
 const menuItems = [
   { name: "Features", to: "#link" },
   { name: "Join", to: "#link" },
   { name: "About", to: "#link" },
-];
-
-const authLinks = [
-  { name: "Login", to: "#link" },
-  { name: "Sign Up", to: "#link" },
-  { name: "Get Started", to: "#" },
 ];
 
 export const HeroHeader = () => {
@@ -51,6 +46,13 @@ export const HeroHeader = () => {
               </Link>
 
               <div className="flex items-center justify-center gap-6">
+                <div className="lg:hidden">
+                  <ThemeSwitcher />
+                </div>
+                <div className="lg:hidden">
+                  <ConnectKitButton label="Sign In" />
+                </div>
+
                 <button
                   onClick={() => setMenuState(!menuState)}
                   aria-label={menuState == true ? "Close Menu" : "Open Menu"}
@@ -59,9 +61,6 @@ export const HeroHeader = () => {
                   <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
                   <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
                 </button>
-                <div className="lg:hidden">
-                  <ThemeSwitcher />
-                </div>
               </div>
 
               <div className="m-auto hidden size-fit lg:block">
@@ -94,35 +93,11 @@ export const HeroHeader = () => {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="sm"
-                  className={cn(isScrolled && "lg:hidden")}
-                >
-                  <Link to={authLinks[0].to}>
-                    <span>Login</span>
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="sm"
-                  className={cn(isScrolled && "lg:hidden")}
-                >
-                  <Link to={authLinks[1].to}>
-                    <span>Sign Up</span>
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="sm"
-                  className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
-                >
-                  <Link to={authLinks[2].to}>
-                    <span>Get Started</span>
-                  </Link>
-                </Button>
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 lg:gap-6 sm:space-y-0 md:w-fit">
+                <ConnectKitButton label="Sign In" />
+                <div className="hidden lg:block">
+                  <ThemeSwitcher />
+                </div>
               </div>
             </div>
           </div>
