@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
+import type { config as configType } from "./lib/config";
+import { config } from "./lib/config";
+import { WagmiProvider } from "wagmi";
 
 const queryClient = new QueryClient({});
 
@@ -18,6 +21,13 @@ const router = createRouter({
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
 });
+
+// Register wagmi instance for type safety
+declare module "wagmi" {
+  interface Register {
+    wagmi: typeof configType;
+  }
+}
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -32,11 +42,13 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </QueryClientProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+            <RouterProvider router={router} />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </StrictMode>,
   );
 }
