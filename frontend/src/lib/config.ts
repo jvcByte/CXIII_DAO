@@ -1,18 +1,18 @@
 import { createConfig, http } from "wagmi";
-import { mainnet, sepolia, celoSepolia, celo } from "wagmi/chains";
+import { mainnet, sepolia, celoAlfajores, celo } from "wagmi/chains";
 import { getDefaultConfig } from "connectkit";
 import { QueryClient } from "@tanstack/react-query";
 
 const config = createConfig(
   getDefaultConfig({
-    chains: [mainnet, sepolia, celo, celoSepolia],
+    chains: [mainnet, sepolia, celo, celoAlfajores],
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(
         `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_API_KEY}`,
       ),
       [celo.id]: http(),
-      [celoSepolia.id]: http(),
+      [celoAlfajores.id]: http(),
     },
     enableFamily: false,
     // Required API Keys
