@@ -31,7 +31,7 @@ const config = createConfig(
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0 * 1000, // 1 minute
+      staleTime: 60 * 1000, // 1 minute
     },
   },
 });
