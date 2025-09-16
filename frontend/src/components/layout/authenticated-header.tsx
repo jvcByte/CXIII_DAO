@@ -1,5 +1,6 @@
-import { CustomConnectKitButton } from "@/components/ui/custom-ui/customeButton";
 import { cn } from "@/lib/utils";
+import { UserInfo } from "./user-info";
+import { ThemeSwitcher } from "./theme-switcher";
 
 type AuthenticatedHeaderProps = {
   className?: string;
@@ -19,8 +20,11 @@ export function AuthenticatedHeader({ className }: AuthenticatedHeaderProps) {
             <h1 className="text-xl font-bold tracking-wide">CXIII DAO</h1>
           </div>
 
-          <div className="flex items-center">
-            <CustomConnectKitButton />
+          <div className="flex items-center gap-4">
+            <UserInfo />
+            <div>
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       </div>

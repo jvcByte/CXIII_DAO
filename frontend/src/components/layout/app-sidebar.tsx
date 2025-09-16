@@ -10,7 +10,7 @@ import {
 import { AppTitle } from "@/components/layout/app-title";
 import { sidebarData } from "@/data/sidebar-data";
 import { NavGroup } from "@/components/layout/nav-group";
-import { NavUser } from "@/components/layout/nav-user";
+import { CustomConnectKitButton } from "@/components/ui/custom-ui/customeButton";
 
 export function AppSidebar() {
   return (
@@ -24,7 +24,7 @@ export function AppSidebar() {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <CustomConnectKitButton />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

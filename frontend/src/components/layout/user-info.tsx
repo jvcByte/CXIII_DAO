@@ -10,7 +10,7 @@ import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
 import { truncateAddress } from "@/lib/utils";
 import { normalize } from "viem/ens";
 
-export function NavUser() {
+export function UserInfo() {
   const account = useAccount();
   const avatarBg = generateColorFromAddress(account.address);
   const { data: ensAvatar } = useEnsAvatar({
