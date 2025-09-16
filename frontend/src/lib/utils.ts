@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { formatEther } from "viem";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -8,6 +9,12 @@ export function cn(...inputs: ClassValue[]) {
 export async function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+// Formatting helper
+export const formatNumber = (value: bigint | undefined) => {
+  if (value === undefined) return "0.00";
+  return parseFloat(formatEther(value)).toFixed(2);
+};
 
 export function generateColorFromAddress(address?: string): string {
   // Simple deterministic color generator (hash the address)

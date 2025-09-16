@@ -1,4 +1,14 @@
+import { useReadContract } from "wagmi";
+import contracts from "@/contracts/types";
+// import { formatNumber } from "@/lib/utils";
+
 export function Dashboard() {
+  const { data: proposalCounts } = useReadContract({
+    ...contracts.CXII_DAO,
+    functionName: "proposalCount",
+  });
+
+  console.log("Prposal Count: ", proposalCounts);
   return (
     <div className="flex flex-col gap-6 p-4 max-w-[1500px] mx-auto">
       <div className="flex items-center justify-between">
@@ -9,7 +19,7 @@ export function Dashboard() {
           <h3 className="text-sm font-medium text-muted-foreground">
             Total Proposals
           </h3>
-          <div className="text-2xl font-bold">12</div>
+          <div className="text-2xl font-bold">{proposalCounts}</div>
         </div>
         <div className="rounded-lg border bg-card p-6">
           <h3 className="text-sm font-medium text-muted-foreground">
