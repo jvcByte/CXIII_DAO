@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/temp-route")({
+export const Route = createFileRoute("/_authenticated/temp-route")({
   component: RouteComponent,
 });
 

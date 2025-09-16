@@ -9,18 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TempRouteRouteImport } from './routes/temp-route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedTempRouteRouteImport } from './routes/_authenticated/temp-route'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCreateProposalRouteImport } from './routes/_authenticated/create-proposal'
 
-const TempRouteRoute = TempRouteRouteImport.update({
-  id: '/temp-route',
-  path: '/temp-route',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -34,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTempRouteRoute = AuthenticatedTempRouteRouteImport.update({
+  id: '/temp-route',
+  path: '/temp-route',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
@@ -50,57 +50,49 @@ const AuthenticatedCreateProposalRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/temp-route': typeof TempRouteRoute
   '/create-proposal': typeof AuthenticatedCreateProposalRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/temp-route': typeof AuthenticatedTempRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/temp-route': typeof TempRouteRoute
   '/create-proposal': typeof AuthenticatedCreateProposalRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/temp-route': typeof AuthenticatedTempRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/temp-route': typeof TempRouteRoute
   '/_authenticated/create-proposal': typeof AuthenticatedCreateProposalRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/temp-route': typeof AuthenticatedTempRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/temp-route' | '/create-proposal' | '/dashboard'
+  fullPaths: '/' | '/about' | '/create-proposal' | '/dashboard' | '/temp-route'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/temp-route' | '/create-proposal' | '/dashboard'
+  to: '/' | '/about' | '/create-proposal' | '/dashboard' | '/temp-route'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/temp-route'
     | '/_authenticated/create-proposal'
     | '/_authenticated/dashboard'
+    | '/_authenticated/temp-route'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  TempRouteRoute: typeof TempRouteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/temp-route': {
-      id: '/temp-route'
-      path: '/temp-route'
-      fullPath: '/temp-route'
-      preLoaderRoute: typeof TempRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -122,6 +114,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/temp-route': {
+      id: '/_authenticated/temp-route'
+      path: '/temp-route'
+      fullPath: '/temp-route'
+      preLoaderRoute: typeof AuthenticatedTempRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -142,11 +141,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCreateProposalRoute: typeof AuthenticatedCreateProposalRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedTempRouteRoute: typeof AuthenticatedTempRouteRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCreateProposalRoute: AuthenticatedCreateProposalRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedTempRouteRoute: AuthenticatedTempRouteRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -156,7 +157,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  TempRouteRoute: TempRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
