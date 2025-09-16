@@ -13,7 +13,7 @@ export function AuthenticatedHeader({ className }: AuthenticatedHeaderProps) {
         className,
       )}
     >
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-8xl px-6">
         <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0">
           <div className="flex items-center">
             <h1 className="text-xl font-bold tracking-wide">CXIII DAO</h1>
