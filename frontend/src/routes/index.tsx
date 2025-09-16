@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import HeroSection from "@/components/layout/hero-section";
 import { useAccount } from "wagmi";
 import { AuthenticatedLayout } from "@/components/layout/authed-layout";
-import { Dashboard } from "@/components/dashboard/dashboard";
+import { Dashboard } from "@/components/dashboard";
 
 export const Route = createFileRoute("/")({
   component: Index,

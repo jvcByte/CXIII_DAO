@@ -4,7 +4,7 @@ export function Dashboard() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border bg-card p-6">
           <h3 className="text-sm font-medium text-muted-foreground">
             Total Proposals
