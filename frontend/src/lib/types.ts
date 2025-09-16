@@ -1,4 +1,15 @@
 import type { LinkProps } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
+
+export interface AuthContext {
+  isAuthenticated: boolean;
+  address?: `0x${string}`;
+}
+
+export interface RouterContext {
+  queryClient?: QueryClient;
+  auth: AuthContext;
+}
 
 type User = {
   name: string;

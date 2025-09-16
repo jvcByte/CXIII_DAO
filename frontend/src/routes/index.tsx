@@ -2,7 +2,8 @@ import { HeroHeader } from "@/components/layout/header";
 import { createFileRoute } from "@tanstack/react-router";
 import HeroSection from "@/components/layout/hero-section";
 import { useAccount } from "wagmi";
-import { ConnectKitButton } from "connectkit";
+import { AuthenticatedLayout } from "@/components/layout/authed-layout";
+import { Dashboard } from "@/components/dashboard/dashboard";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,13 +22,8 @@ function Index() {
   }
 
   return (
-    <div className="p-2">
-      <>
-        <div className="flex justify-evenly items-center-safe">
-          <p>Temp Page</p>
-          <ConnectKitButton />
-        </div>
-      </>
-    </div>
+    <AuthenticatedLayout>
+      <Dashboard />
+    </AuthenticatedLayout>
   );
 }

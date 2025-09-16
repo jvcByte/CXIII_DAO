@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export const CustomConnectKitButton = () => {
   return (
     <ConnectKitButton.Custom>
-      {({ isConnected, isConnecting, show, address, ensName }) => {
+      {({ isConnected, isConnecting, show, truncatedAddress, ensName }) => {
         return (
           <Button
             onClick={show}
@@ -15,7 +15,7 @@ export const CustomConnectKitButton = () => {
             {isConnecting
               ? "Signing In..."
               : isConnected
-                ? (ensName ?? address)
+                ? (ensName ?? truncatedAddress)
                 : "Sign In"}
           </Button>
         );

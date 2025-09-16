@@ -1,16 +1,11 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { Toaster } from "react-hot-toast";
-
-import { QueryClient } from "@tanstack/react-query";
 import { NotFoundError } from "@/components/errors/not-found-error";
 import { GeneralError } from "@/components/errors/general-error";
+import type { RouterContext } from "@/lib/types";
 
-interface MyRouterContext {
-  queryClient: QueryClient;
-}
-
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <>
       <Outlet />

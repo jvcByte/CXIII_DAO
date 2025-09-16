@@ -23,12 +23,12 @@ export const sidebarData: SidebarData = {
       items: [
         {
           title: "Dashboard",
-          url: "/",
+          url: "/dashboard",
           icon: LayoutDashboard,
         },
         {
           title: "Create Prposal",
-          url: "/temp-route",
+          url: "/create-proposal",
           icon: Users,
         },
       ],
