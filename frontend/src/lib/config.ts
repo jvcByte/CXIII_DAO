@@ -14,7 +14,7 @@ const config = createConfig(
       [celo.id]: http(),
       [celoSepolia.id]: http(),
     },
-
+    enableFamily: false,
     // Required API Keys
     walletConnectProjectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
 

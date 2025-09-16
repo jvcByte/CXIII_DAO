@@ -2,6 +2,7 @@ import { HeroHeader } from "@/components/header";
 import { createFileRoute } from "@tanstack/react-router";
 import HeroSection from "@/components/hero-section";
 import { useAccount } from "wagmi";
+import { ConnectKitButton } from "connectkit";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,7 +23,10 @@ function Index() {
   return (
     <div className="p-2">
       <>
-        <p>Temp Page</p>
+        <div className="flex justify-evenly items-center-safe">
+          <p>Temp Page</p>
+          <ConnectKitButton />
+        </div>
       </>
     </div>
   );

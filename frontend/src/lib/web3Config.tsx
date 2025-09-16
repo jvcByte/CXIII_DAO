@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider } from "connectkit";
 import { config } from "./config";
 import { queryClient } from "./config";
+import { customeTheme } from "@/styles/connectkit-modal-theme";
 
 // Declare wagmi module for type safety
 declare module "wagmi" {
@@ -19,7 +20,9 @@ export const Web3Provider = ({ children }: Web3ProviderProps) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider>{children}</ConnectKitProvider>
+        <ConnectKitProvider mode="auto" customTheme={customeTheme}>
+          {children}
+        </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
