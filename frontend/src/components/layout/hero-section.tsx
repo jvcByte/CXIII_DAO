@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { HeroHeader } from "@/components/header";
+import { HeroHeader } from "@/components/layout/header";
 import { ChevronRight } from "lucide-react";
-import { TextLoopBasic } from "./layout/tesxt-loop-roll";
+import { TextLoopBasic } from "./tesxt-loop-roll";
 
 const heroImage = "/src/assets/mist/tailark.png";
 const navLinks = [

@@ -1,11 +1,10 @@
-"use client";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { ThemeSwitcher } from "./theme-switcher";
-import { CustomConnectKitButton } from "./ui/custom-ui/customeButton";
+import { CustomConnectKitButton } from "@/components/ui/custom-ui/customeButton";
 const menuItems = [
   { name: "Features", to: "#link" },
   { name: "Join", to: "#link" },

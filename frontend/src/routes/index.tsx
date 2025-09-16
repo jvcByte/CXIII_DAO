@@ -1,6 +1,6 @@
-import { HeroHeader } from "@/components/header";
+import { HeroHeader } from "@/components/layout/header";
 import { createFileRoute } from "@tanstack/react-router";
-import HeroSection from "@/components/hero-section";
+import HeroSection from "@/components/layout/hero-section";
 import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 
