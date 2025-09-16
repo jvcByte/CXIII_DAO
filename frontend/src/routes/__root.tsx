@@ -20,7 +20,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         }}
         position="top-center"
       />
-      <TanStackRouterDevtools position="bottom-right" initialIsOpen={false} />
+      {import.meta.env.MODE === "development" && (
+        <>
+          <TanStackRouterDevtools
+            position="bottom-right"
+            initialIsOpen={false}
+          />
+        </>
+      )}
     </>
   ),
   notFoundComponent: NotFoundError,
