@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { ThemeSwitcher } from "./theme-switcher";
-import { CustomConnectKitButton } from "@/components/ui/custom-ui/customeButton";
+import { WalletConnectionButton } from "@/components/wallet/wallet-connection-button";
 const menuItems = [
   { name: "Features", to: "#link" },
   { name: "Join", to: "#link" },
@@ -48,7 +48,7 @@ export const HeroHeader = () => {
                   <ThemeSwitcher />
                 </div>
                 <div className="lg:hidden">
-                  <CustomConnectKitButton />
+                  <WalletConnectionButton />
                 </div>
 
                 <button
@@ -92,7 +92,7 @@ export const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 lg:gap-6 sm:space-y-0 md:w-fit">
-                <CustomConnectKitButton />
+                <WalletConnectionButton />
                 <div className="hidden lg:block">
                   <ThemeSwitcher />
                 </div>

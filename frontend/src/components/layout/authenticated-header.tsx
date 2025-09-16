@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { UserInfo } from "./user-info";
+import { WalletConnectionButton } from "@/components/wallet/wallet-connection-button";
 import { ThemeSwitcher } from "./theme-switcher";
 
 type AuthenticatedHeaderProps = {
@@ -14,14 +14,14 @@ export function AuthenticatedHeader({ className }: AuthenticatedHeaderProps) {
         className,
       )}
     >
-      <div className="mx-auto max-w-8xl px-6">
+      <div className="mx-auto max-w-8xl px-2">
         <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0">
           <div className="flex items-center">
             <h1 className="text-xl font-bold tracking-wide">CXIII DAO</h1>
           </div>
 
-          <div className="flex items-center gap-4">
-            <UserInfo />
+          <div className="flex items-center gap-2">
+            <WalletConnectionButton showBalance={true} />
             <div>
               <ThemeSwitcher />
             </div>

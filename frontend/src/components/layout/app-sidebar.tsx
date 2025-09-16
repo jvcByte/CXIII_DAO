@@ -10,11 +10,10 @@ import {
 import { AppTitle } from "@/components/layout/app-title";
 import { sidebarData } from "@/data/sidebar-data";
 import { NavGroup } from "@/components/layout/nav-group";
-import { CustomConnectKitButton } from "@/components/ui/custom-ui/customeButton";
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" variant="floating">
+    <Sidebar collapsible="icon" variant="floating" side="left">
       <SidebarHeader>
         <AppTitle />
       </SidebarHeader>
@@ -24,7 +23,12 @@ export function AppSidebar() {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <CustomConnectKitButton />
+        <div className="flex items-center justify-center gap-2 p-1">
+          <img src="/jvcLogo.svg" alt="Logo" className="h-8 w-8" />
+          <p className=" truncate text-center text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} jvcByte
+          </p>
+        </div>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

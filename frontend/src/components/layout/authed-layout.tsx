@@ -1,7 +1,6 @@
 import { Outlet } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
 import { SearchProvider } from "@/context/search-provider";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarTrigger, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SkipToMain } from "@/components/skip-to-main";
 import { AuthenticatedHeader } from "@/components/layout/authenticated-header";
@@ -18,25 +17,13 @@ export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
         <SidebarProvider defaultOpen={true}>
           <SkipToMain />
           <AppSidebar />
-          <SidebarInset
-            className={cn(
-              // Set content container, so we can use container queries
-              "@container/content",
-
-              // If layout is fixed, set the height
-              // to 100svh to prevent overflow
-              "has-[[data-layout=fixed]]:h-svh",
-
-              // If layout is fixed and sidebar is inset,
-              // set the height to 100svh - spacing (total margins) to prevent overflow
-              "peer-data-[variant=inset]:has-[[data-layout=fixed]]:h-[calc(100svh-(var(--spacing)*4))]",
-            )}
-          >
-            <AuthenticatedHeader />
-            <main className="flex-1 overflow-auto p-6">
-              {children ?? <Outlet />}
-            </main>
-          </SidebarInset>
+          <main className="flex w-full flex-col">
+            <div className="flex items-center sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <SidebarTrigger className="mr-5" />
+              <AuthenticatedHeader className="mx-auto" />
+            </div>
+            <div>{children ?? <Outlet />}</div>
+          </main>
         </SidebarProvider>
       </SearchProvider>
     </AuthGuard>
