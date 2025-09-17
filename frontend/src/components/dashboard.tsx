@@ -1,7 +1,6 @@
-import { useReadContract, usePublicClient } from "wagmi";
-import { useQuery } from "@tanstack/react-query";
+import { useReadContract } from "wagmi";
 import contracts from "@/contracts/types";
-import { DAO_EVENTS } from "@/contracts/events";
+import { useProposalEvents } from "@/hooks/useProposalEvents";
 // import { formatNumber } from "@/lib/utils";
 
 export interface proposalCountEventProps {
@@ -11,32 +10,7 @@ export interface proposalCountEventProps {
 }
 
 export function Dashboard() {
-  const publicClient = usePublicClient();
-
-  const { data: proposalEvents } = useQuery({
-    queryKey: ["proposal-events", contracts.CXII_DAO.address],
-    queryFn: async () => {
-      if (!publicClient) return [];
-
-      const logs = await publicClient.getLogs({
-        address: contracts.CXII_DAO.address,
-        event: DAO_EVENTS.ProposalCreated,
-        fromBlock: "earliest",
-        toBlock: "latest",
-      });
-
-      return logs.map((log) => ({
-        id: log.args.id,
-        description: log.args.description,
-        deadline: log.args.deadline,
-        blockNumber: log.blockNumber,
-        transactionHash: log.transactionHash,
-        logIndex: log.logIndex,
-      }));
-    },
-    enabled: !!publicClient,
-    staleTime: 1000,
-  });
+  const { data: proposalEvents } = useProposalEvents();
   console.log("Prposal Event: ", proposalEvents);
   const { data: proposalCounts } = useReadContract({
     ...contracts.CXII_DAO,

@@ -10,9 +10,12 @@ export const ProposalState = {
 } as const;
 
 export interface ProposalCreatedEvent {
-  id: bigint;
-  description: string;
-  deadline: bigint;
+  id: bigint | undefined;
+  description: string | undefined;
+  deadline: bigint | undefined;
+  blockNumber: bigint;
+  transactionHash: `0x${string}`;
+  logIndex: number;
 }
 
 export interface ProposalFulfilledEvent {
