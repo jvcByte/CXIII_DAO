@@ -1,6 +1,7 @@
 import { useReadContract } from "wagmi";
 import contracts from "@/contracts/types";
 import { useProposalEvents } from "@/hooks/useProposalEvents";
+import { RecentActivity } from "@/components/RecentActivity";
 // import { formatNumber } from "@/lib/utils";
 
 export interface proposalCountEventProps {
@@ -51,7 +52,7 @@ export function Dashboard() {
       </div>
       <div className="rounded-lg border bg-card p-6">
         <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
-        <p className="text-muted-foreground">No recent activity to display.</p>
+        <RecentActivity limit={5} />
       </div>
     </div>
   );
