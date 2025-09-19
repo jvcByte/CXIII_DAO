@@ -35,19 +35,19 @@ export function Dashboard() {
           <h3 className="text-sm font-medium text-muted-foreground">
             Active Votes
           </h3>
-          <div className="text-2xl font-bold">0</div>
+          <div className="text-2xl font-bold">5</div>
         </div>
         <div className="rounded-lg border bg-card p-6">
           <h3 className="text-sm font-medium text-muted-foreground">
             Your Votes
           </h3>
-          <div className="text-2xl font-bold">0</div>
+          <div className="text-2xl font-bold">4</div>
         </div>
         <div className="rounded-lg border bg-card p-6">
           <h3 className="text-sm font-medium text-muted-foreground">
             Voting Power
           </h3>
-          <div className="text-2xl font-bold">0</div>
+          <div className="text-2xl font-bold">3</div>
         </div>
       </div>
       <div className="rounded-lg border bg-card p-6">
